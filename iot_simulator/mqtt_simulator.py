@@ -3,13 +3,13 @@ import random
 import time
 
 def simulate_normal_data(client, topic):
-  for _ in range(30):
-    client.publish(topic, "normal data")
+  for i in range(30):
+    client.publish(topic, f"{i}: normal data")
     time.sleep(random.uniform(0.7, 2.1))
   
 def simulate_anomaly_data(client, topic):
-  for _ in range(70):
-    client.publish(topic, "anomaly data")
+  for i in range(70):
+    client.publish(topic, f"{i}: anomaly data")
     time.sleep(random.uniform(0.01, 0.09))
 
 def main():
