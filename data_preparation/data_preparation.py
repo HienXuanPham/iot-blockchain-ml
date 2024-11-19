@@ -20,10 +20,14 @@ from sklearn.model_selection import train_test_split
 
 # dataset_df.to_csv('dataset.csv', index=False)
 # print("Dataset created and saved as dataset.csv")
-
-dataset = pd.read_csv('dataset.csv')
-small_dataset = dataset.sample(frac=0.1, random_state=42)
-train_data, test_data = train_test_split(small_dataset, test_size=0.2, random_state=42)
-print(len(train_data), len(test_data)) 
 # Output: 37349263 rows for train_data and 9337316 rows for test_data when using the full dataset
 # Output: 3734926 and 933732 rows for train_data and test_data when using the 10% dataset
+# output: 37349 and 9337 for train_data and test_data when using the 0.1% dataset
+
+dataset = pd.read_csv('dataset.csv')
+small_dataset = dataset.sample(frac=0.001, random_state=42)
+train_data, test_data = train_test_split(small_dataset, test_size=0.2, random_state=42)
+print(len(train_data), len(test_data)) 
+
+train_data.to_csv('train_data.csv', index=False)
+test_data.to_csv('test_data.csv', index=False)
