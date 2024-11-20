@@ -1,7 +1,6 @@
 from flask_app import data_from_devices
 from flask import Blueprint, jsonify
-from machine_learning.anomaly_detector import anomaly_detector
-import numpy
+from machine_learning.anomaly_detector import detector
 
 app_bp = Blueprint("h", __name__, url_prefix="/h")
 
@@ -11,6 +10,9 @@ def get_data():
 
 @app_bp.route("/detect", methods=["GET"])
 def detect_anomalies():
-  predictions = anomaly_detector(data_from_devices)
-  print(f"Predictions: {predictions}")
-  return jsonify(predictions.tolist())
+  if data_from_devices:
+    prediction = detector.predict(data_from_devices)
+
+    return jsonify(prediction.tolist())
+  else:
+    return jsonify("Something went wrong"), 400
